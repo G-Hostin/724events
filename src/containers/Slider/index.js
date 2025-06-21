@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useData } from "../../contexts/DataContext";
 import { getMonth } from "../../helpers/Date";
 
@@ -35,8 +35,7 @@ const Slider = () => {
     <div className="SlideCardList">
       {/* .map sur la liste des events, idx est l'index du map */}
       {byDateDesc?.map((event, idx) => (
-        <React.Fragment key={event.title}>
-          {" "}
+        <React.Fragment key={event.id}>
           {/* Ajout d'une key au fragment car dans un .map */}
           <div
             key={event.title}
@@ -54,21 +53,35 @@ const Slider = () => {
               </div>
             </div>
           </div>
-          <div className="SlideCard__paginationContainer">
+          {/* <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {byDateDesc.map((_, radioIdx) => ( .map dans un .map donc cree un ligne de radio a chaque slide
                 <input
-                  key={`${event.id}`}
+                  key={`${event.id}`} mauvais id car 3x le meme
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  checked={idx === radioIdx} compare l'index du btn avec celui du .map alors que c'est avec celui du useState qu'il faut comparer
                 />
-              ))}{" "}
-              {/* Pour chaque image on crée un btn radio et celui dont l'index radioIdx correspond à celui du useState est checked */}
+              ))}
+              
             </div>
-          </div>
+          </div> */}
+          {/* Pour chaque image on crée un btn radio et celui dont l'index radioIdx correspond à celui du useState est checked */}
         </React.Fragment>
       ))}
+      <div className="SlideCard__paginationContainer">
+        <div className="SlideCard__pagination">
+          {byDateDesc?.map((event, radioIdx) => (
+            <input
+              key={`radio-${event.id}`}
+              type="radio"
+              name="radio-button"
+              checked={index === radioIdx}
+            />
+          ))}
+          {/* div hors du 1er map + id correct + comparaison avec l'index de la slide useState */}
+        </div>
+      </div>
     </div>
   );
 };

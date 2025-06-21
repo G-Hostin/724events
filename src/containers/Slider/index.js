@@ -38,7 +38,6 @@ const Slider = () => {
         <React.Fragment key={event.id}>
           {/* Ajout d'une key au fragment car dans un .map */}
           <div
-            key={event.title}
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}

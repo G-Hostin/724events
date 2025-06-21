@@ -7,19 +7,21 @@ import {
   useState,
 } from "react";
 
-const DataContext = createContext({});
+const DataContext = createContext({}); // Crée un context vide
 
 export const api = {
   loadData: async () => {
     const json = await fetch("/events.json");
     return json.json();
   },
-};
+}; // Simule une api, charge le json
 
 export const DataProvider = ({ children }) => {
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+  // Provider qui permet de partager error et data dans le projet
+  const [error, setError] = useState(null); // Resultat du catch
+  const [data, setData] = useState(null); // Resultat du loadData si réussi
   const getData = useCallback(async () => {
+    // useCallback permet de garder la fonction entre les re render
     try {
       setData(await api.loadData());
     } catch (err) {
@@ -30,7 +32,7 @@ export const DataProvider = ({ children }) => {
     if (data) return;
     getData();
   });
-  
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -46,8 +48,8 @@ export const DataProvider = ({ children }) => {
 
 DataProvider.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export const useData = () => useContext(DataContext);
+export const useData = () => useContext(DataContext); // Raccourci l'utilisation avec useData
 
 export default DataContext;

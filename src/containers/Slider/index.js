@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useData } from "../../contexts/DataContext";
 import { getMonth } from "../../helpers/Date";
 
@@ -21,7 +21,8 @@ const Slider = () => {
   const nextCard = () => {
     setIndex((prev) => (prev < byDateDesc.length - 1 ? prev + 1 : 0));
   }; // Pas de setTimeout à chaque appel de la fonction, prev empeche les bugs si state mis à jour ailleur, et surtout byDateDesc.length - 1 car décalage entre index et lenght
-  const slideCount = byDateDesc?.length;
+  const slideCount = byDateDesc?.length; // Pas d'erreur de undefined sur le useEffect
+
   useEffect(() => {
     // useEffect qui se déclenche à chaque changement d'index ou du nombre de photos
     const timer = setTimeout(() => {
@@ -34,7 +35,9 @@ const Slider = () => {
     <div className="SlideCardList">
       {/* .map sur la liste des events, idx est l'index du map */}
       {byDateDesc?.map((event, idx) => (
-        <>
+        <React.Fragment key={event.title}>
+          {" "}
+          {/* Ajout d'une key au fragment car dans un .map */}
           <div
             key={event.title}
             className={`SlideCard SlideCard--${
@@ -64,7 +67,7 @@ const Slider = () => {
               {/* Pour chaque image on crée un btn radio et celui dont l'index radioIdx correspond à celui du useState est checked */}
             </div>
           </div>
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

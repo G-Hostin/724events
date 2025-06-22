@@ -5,6 +5,7 @@
   width: 100%;
   max-width: 1440px;
   height: 586px;
+  overflow: hidden; // Empeche la scroll bar horizontale au changement de slide
   .SlideCard {
     width: 100%;
     left: 0;

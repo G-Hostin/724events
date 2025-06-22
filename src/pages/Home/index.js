@@ -13,7 +13,10 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const { last } = useData();
+  // const { last } = useData();
+  const { data } = useData(); // Recupere toute la data depuis le DataProvider
+  const last = data?.events?.[data.events.length - 1]; // last = parmis les events, celui qui a l'index egal a la longueur du tableau - 1 (donc le dernier)
+
   return (
     <>
       <header>
@@ -114,13 +117,18 @@ const Page = () => {
       <footer className="row">
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
-          <EventCard
-            imageSrc={last?.cover}
-            title={last?.title}
-            date={new Date(last?.date)}
-            small
-            label="boom"
-          />
+          {/* Conditions de rendu pour éviter les erreurs console au premier render */}
+          {last?.cover && last?.title && last?.date && (
+            <EventCard
+              imageSrc={last.cover}
+              title={last.title}
+              date={new Date(last.date)}
+              small
+              label="boom"
+            />
+          )}
+
+          {/* label={last?.type} ? */}
         </div>
         <div className="col contact">
           <h3>Contactez-nous</h3>

@@ -35,8 +35,8 @@ const Slider = () => {
     <div className="SlideCardList">
       {/* .map sur la liste des events, idx est l'index du map */}
       {byDateDesc?.map((event, idx) => (
-        <React.Fragment key={event.id}>
-          {/* Ajout d'une key au fragment car dans un .map */}
+        <React.Fragment key={`${event.title}-${event.date}`}>
+          {/* Ajout d'une key UNIQUE (les .focus n'ont pas d'id dans le json) au fragment car dans un .map */}
           <div
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
@@ -72,13 +72,15 @@ const Slider = () => {
         <div className="SlideCard__pagination">
           {byDateDesc?.map((event, radioIdx) => (
             <input
-              key={`radio-${event.id}`}
+              key={`radio-${event.title}`}
               type="radio"
               name="radio-button"
               checked={index === radioIdx}
+              onChange={() => setIndex(radioIdx)}
             />
           ))}
           {/* div hors du 1er map + id correct + comparaison avec l'index de la slide useState */}
+          {/* event.id en key ne marche pas car les .focus n'en ont pas dans le json + React demande un onChange à cause du checked */}
         </div>
       </div>
     </div>

@@ -109,7 +109,11 @@ const Page = () => {
             }
           >
             {({ setIsOpened }) => (
-              <Form onSuccess={() => setIsOpened(true)} onError={() => null} />
+              <Form
+                onSuccess={() => setIsOpened(true)}
+                // eslint-disable-next-line no-alert
+                onError={(err) => alert(err.message)}
+              />
             )}
           </Modal>
         </div>

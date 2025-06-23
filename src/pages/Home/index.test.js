@@ -48,9 +48,12 @@ describe("When Form is created", () => {
 });
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
+  it("a list of events is displayed", async () => {
+    render(<Home />);
+    const eventsList = await screen.findByTestId("events-list-testid");
+    expect(eventsList).toBeInTheDocument();
   });
+
   it("a list a people is displayed", () => {
     // to implement
   });

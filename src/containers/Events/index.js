@@ -53,7 +53,11 @@ const EventList = () => {
             selection={Array.from(typeList)} // Transforme la typeList en tableau pour faire un .map dessus
             onChange={(value) => (value ? changeType(value) : changeType(null))} // Si value existe (exemple conférence) alors on apl changeType sinon c'est null donc desactive le filtrage (toutes)
           />
-          <div id="events" className="ListContainer">
+          <div
+            id="events"
+            className="ListContainer"
+            data-testid="events-list-testid"
+          >
             {filteredEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (

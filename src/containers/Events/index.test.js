@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, act } from "@testing-library/react";
 import { api, DataProvider } from "../../contexts/DataContext";
 import Events from "./index";
 
@@ -48,17 +48,34 @@ describe("When Events is created", () => {
     // await screen.findByText("avril");
     await screen.findAllByText("avril"); // Plusieurs éléments avec Avril donc findAllByText sinon erreur
   });
+  // describe("and an error occured", () => {
+  //   it("an error message is displayed", async () => {
+  //     api.loadData = jest.fn().mockRejectedValue();
+  //     render(
+  //       <DataProvider>
+  //         <Events />
+  //       </DataProvider>
+  //     );
+  //     expect(await screen.findByText("An error occured")).toBeInTheDocument();
+  //   });
+  // });
+
   describe("and an error occured", () => {
     it("an error message is displayed", async () => {
-      api.loadData = jest.fn().mockRejectedValue();
-      render(
-        <DataProvider>
-          <Events />
-        </DataProvider>
-      );
+      api.loadData = jest.fn().mockRejectedValue(new Error("fail")); // Cree une erreur pour passer en catch dans DataProvider
+      await act(async () => {
+        // Ajout de await act car warning test async vu qu'on modifie le State de DataProvider et que Jest n'a pas l'oeil dessus -- act permet d'attendre que le rendu soit totalement fini avant de passer a la suite du test et expect
+        render(
+          <DataProvider>
+            <Events />
+          </DataProvider>
+        );
+      });
+      await screen.findByText("loading"); // Ajout de loading car généré avant "An error occured"
       expect(await screen.findByText("An error occured")).toBeInTheDocument();
     });
   });
+
   describe("and we select a category", () => {
     it("an filtered list is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data);

@@ -14,6 +14,27 @@ describe("When Events is created", () => {
     it("the success action is called", async () => {
       const onSuccess = jest.fn();
       render(<Form onSuccess={onSuccess} />);
+
+      const inputs = screen.getAllByTestId("field-testid");
+
+      fireEvent.change(
+        inputs.find((el) => el.name === "nom"),
+        {
+          target: { value: "Jean" },
+        }
+      );
+      fireEvent.change(
+        inputs.find((el) => el.name === "prenom"),
+        {
+          target: { value: "Dupont" },
+        }
+      );
+      fireEvent.change(
+        inputs.find((el) => el.name === "email"),
+        {
+          target: { value: "test@email.com" },
+        }
+      );
       fireEvent(
         await screen.findByTestId("button-test-id"),
         new MouseEvent("click", {

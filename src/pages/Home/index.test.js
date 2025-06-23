@@ -13,6 +13,27 @@ describe("When Form is created", () => {
   describe("and a click is triggered on the submit button", () => {
     it("the success message is displayed", async () => {
       render(<Home />);
+
+      const inputs = screen.getAllByTestId("field-testid");
+
+      fireEvent.change(
+        inputs.find((el) => el.name === "nom"),
+        {
+          target: { value: "Jean" },
+        }
+      );
+      fireEvent.change(
+        inputs.find((el) => el.name === "prenom"),
+        {
+          target: { value: "Dupont" },
+        }
+      );
+      fireEvent.change(
+        inputs.find((el) => el.name === "email"),
+        {
+          target: { value: "test@email.com" },
+        }
+      );
       fireEvent(
         await screen.findByText("Envoyer"),
         new MouseEvent("click", {
@@ -24,21 +45,19 @@ describe("When Form is created", () => {
       await screen.findByText("Message envoyé !");
     });
   });
-
 });
-
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
     // to implement
-  })
+  });
   it("a list a people is displayed", () => {
     // to implement
-  })
+  });
   it("a footer is displayed", () => {
     // to implement
-  })
+  });
   it("an event card, with the last event, is displayed", () => {
     // to implement
-  })
+  });
 });

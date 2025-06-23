@@ -45,7 +45,8 @@ describe("When Events is created", () => {
         <Events />
       </DataProvider>
     );
-    await screen.findByText("avril");
+    // await screen.findByText("avril");
+    await screen.findAllByText("avril"); // Plusieurs éléments avec Avril donc findAllByText sinon erreur
   });
   describe("and an error occured", () => {
     it("an error message is displayed", async () => {
@@ -59,7 +60,7 @@ describe("When Events is created", () => {
     });
   });
   describe("and we select a category", () => {
-    it.only("an filtered list is displayed", async () => {
+    it("an filtered list is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data);
       render(
         <DataProvider>

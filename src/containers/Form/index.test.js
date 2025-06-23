@@ -15,18 +15,19 @@ describe("When Events is created", () => {
       const onSuccess = jest.fn();
       render(<Form onSuccess={onSuccess} />);
 
-      const inputs = screen.getAllByTestId("field-testid");
+      const inputs = screen.getAllByTestId("field-testid"); // Recupere les inputs avec l'id des inputs dans le component Field
 
       fireEvent.change(
-        inputs.find((el) => el.name === "nom"),
+        // Simule utilisateur
+        inputs.find((el) => el.name === "nom"), // .find parcours le tableau des elements (el) et trouve le bon champ dont le nam correspond à nom
         {
-          target: { value: "Jean" },
+          target: { value: "Jean" }, // remplace la value de la target par Jean Baptiste
         }
       );
       fireEvent.change(
         inputs.find((el) => el.name === "prenom"),
         {
-          target: { value: "Dupont" },
+          target: { value: "Baptiste" },
         }
       );
       fireEvent.change(
@@ -38,8 +39,8 @@ describe("When Events is created", () => {
       fireEvent(
         await screen.findByTestId("button-test-id"),
         new MouseEvent("click", {
-          cancelable: true,
-          bubbles: true,
+          cancelable: true, // Permet apl preventDefault
+          bubbles: true, // event remonte dans le DOM
         })
       );
       await screen.findByText("En cours");

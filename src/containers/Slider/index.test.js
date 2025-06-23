@@ -41,4 +41,23 @@ describe("When slider is created", () => {
       "Oeuvre à la coopération entre le secteur public et le privé."
     );
   });
+
+  // Vérifie l'ordre d'affichage des slides
+
+  it("displays events from oldest to most recent", async () => {
+    api.loadData = jest.fn().mockReturnValue(data);
+    render(
+      <DataProvider>
+        <Slider />
+      </DataProvider>
+    );
+
+    const titles = await screen.findAllByTestId("slider-title-testid"); // recupere les h3 générés dans le slider avec l'id de test
+    const textContent = titles.map((el) => el.textContent); // map et stock les textContent de tout le map dans la variable textContent
+    expect(textContent).toEqual([
+      "World Farming Day", // janvier
+      "World economic forum", // février
+      "World Gaming Day", // mars
+    ]); // La variable textContent doit être égale à ça avec les textes dans cet ordre
+  });
 });

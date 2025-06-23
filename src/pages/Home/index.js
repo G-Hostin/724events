@@ -62,7 +62,7 @@ const Page = () => {
         <section className="PeoplesContainer" id="notre-equipe">
           <h2 className="Title">Notre équipe</h2>
           <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
-          <div className="ListContainer">
+          <div className="ListContainer" data-testid="people-list-testid">
             <PeopleCard
               imageSrc="/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png"
               name="Samira"

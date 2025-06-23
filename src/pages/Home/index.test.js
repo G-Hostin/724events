@@ -54,8 +54,10 @@ describe("When a page is created", () => {
     expect(eventsList).toBeInTheDocument();
   });
 
-  it("a list a people is displayed", () => {
-    // to implement
+  it("a list a people is displayed", async () => {
+    render(<Home />);
+    const peopleList = await screen.findByTestId("people-list-testid");
+    expect(peopleList).toBeInTheDocument();
   });
   it("a footer is displayed", () => {
     // to implement

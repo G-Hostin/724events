@@ -59,10 +59,12 @@ describe("When a page is created", () => {
     const peopleList = await screen.findByTestId("people-list-testid");
     expect(peopleList).toBeInTheDocument();
   });
-  it("a footer is displayed", () => {
-    // to implement
+  it("a footer is displayed", async () => {
+    render(<Home />);
+    const footer = await screen.findByTestId("footer-testid");
+    expect(footer).toBeInTheDocument();
   });
-  it("an event card, with the last event, is displayed", () => {
+  it("an event card, with the last event, is displayed", async () => {
     // to implement
   });
 });

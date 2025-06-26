@@ -65,6 +65,8 @@ describe("When a page is created", () => {
     expect(footer).toBeInTheDocument();
   });
   it("an event card, with the last event, is displayed", async () => {
-    // to implement
+    render(<Home />);
+    const lastEvent = await screen.findByTestId("last-event-card-testid");
+    expect(lastEvent).toBeInTheDocument();
   });
 });

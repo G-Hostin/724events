@@ -119,7 +119,7 @@ const Page = () => {
         </div>
       </main>
       <footer className="row" data-testid="footer-testid">
-        <div className="col presta">
+        <div className="col presta" data-testid="last-event-card-testid">
           <h3>Notre dernière prestation</h3>
           {/* Conditions de rendu pour éviter les erreurs console au premier render */}
           {last?.cover && last?.title && last?.date && (

@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from "react"; // Import useRef pour stocker le form
+import { useCallback, useState } from "react"; // Import useRef pour stocker le form
 import PropTypes from "prop-types";
 import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
@@ -11,30 +11,30 @@ const mockContactApi = () =>
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false); // Affiche btn En cours d'envoi
-  const formRef = useRef(null); // Créé un "boite vide" qui contiendra le form
+  // const formRef = useRef(null); // Créé un "boite vide" qui contiendra le form
 
   const sendContact = useCallback(
     // Previent du re render de la fonction au cas ou
     async (evt) => {
       evt.preventDefault(); // empeche rechargement submit
 
-      const formData = new FormData(evt.target); // Methode native navigateur pour stocker un form et ses données
-      const nom = formData.get("nom")?.trim(); // Recupere le name nom et supprimes les espaces etc
-      const prenom = formData.get("prenom")?.trim();
-      const email = formData.get("email")?.trim();
+      // const formData = new FormData(evt.target); // Methode native navigateur pour stocker un form et ses données
+      // const nom = formData.get("nom")?.trim(); // Recupere le name nom et supprimes les espaces etc
+      // const prenom = formData.get("prenom")?.trim();
+      // const email = formData.get("email")?.trim();
 
-      if (!nom || !prenom || !email) {
-        // Si il manque le nom OU le prenom OU l'email
-        onError(new Error("Nom, prénom et email requis")); // Error native JS avec le message d'erreur
-        return;
-      }
+      // if (!nom || !prenom || !email) {
+      //   // Si il manque le nom OU le prenom OU l'email
+      //   onError(new Error("Nom, prénom et email requis")); // Error native JS avec le message d'erreur
+      //   return;
+      // }
 
       setSending(true); // Envoi en cours
       // We try to call mockContactApi
       try {
         await mockContactApi(); // Essaye de joindre la fausse API
         setSending(false); // Plus en cours d'envoi
-        formRef.current.reset(); // Vide le form, .reset est une methode native HTML
+        // formRef.current.reset(); // Vide le form, .reset est une methode native HTML
         onSuccess(); // Affiche le message de succès
       } catch (err) {
         setSending(false); // Si erreur plus en cours d'envoi non plus
@@ -44,7 +44,7 @@ const Form = ({ onSuccess, onError }) => {
     [onSuccess, onError] // Dependances de useCallback, recharge la fonction quand une des deux change
   );
   return (
-    <form onSubmit={sendContact} ref={formRef}>
+    <form onSubmit={sendContact}>
       {/* Lie l'element form à formRef.current --> le stocke */}
       <div className="row">
         <div className="col">
